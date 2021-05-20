@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rocket-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rocket-app
+  template:
+    metadata:
+      labels:
+        app: rocket-app
+    spec:
+      containers:
+      - name: rocket-app
+        image: rocket-app
+        ports:
+        - containerPort: 6379
+          name: rocket-app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rocket-app
+spec:
+  ports:
+  - port: 6379
+  selector:
+    app: rocket-app
+
+
